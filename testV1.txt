@@ -1,0 +1,60 @@
+import streamlit as st
+from PIL import Image
+import tempfile
+from roboflow import Roboflow
+import os
+
+# Set your Roboflow API key
+roboflow_api_key = "dcZ99wzOfjJAOBZBqzQx"
+
+# Initialize Roboflow
+rf = Roboflow(api_key=roboflow_api_key)
+
+# Define a Streamlit app
+st.title("Developed by Sky Borneo Solutions")
+
+# Sidebar for user input
+st.sidebar.header("Configure Inference")
+confidence = st.sidebar.slider("Confidence Threshold", 0, 100, 40)
+overlap = st.sidebar.slider("Overlap Threshold", 0, 100, 30)
+
+# Upload an image for inference
+st.sidebar.header("Upload an Image for Inference")
+uploaded_image = st.sidebar.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
+
+if uploaded_image is not None:
+    # Display the uploaded image
+    image = Image.open(uploaded_image)
+    st.image(image, caption="Uploaded Image", use_column_width=True)
+
+    # Perform inference on the uploaded image
+    if st.sidebar.button("Run Inference"):
+        st.write("Running Inference...")
+
+        # Create a 'predict' folder if it doesn't exist
+        if not os.path.exists('predict'):
+            os.mkdir('predict')
+        
+        # Save the uploaded image as a temporary file
+        with tempfile.NamedTemporaryFile(suffix=".jpg", dir='predict', delete=False) as temp_file:
+            image.save(temp_file.name)
+        
+        # Perform inference with the temporary file path - Result in JSON format
+        prediction = rf.project("pv-temperature-detection").version(2).model.predict(
+            temp_file.name, confidence=confidence, overlap=overlap
+        )
+        # Perform inference with the temporary file path - RESULT IN IMAGE FORMAT
+        prediction2 = rf.project("pv-temperature-detection").version(2).model.predict(
+            temp_file.name, confidence=confidence, overlap=overlap
+        ).save("results.jpg")
+        
+        
+        # Remove the temporary file
+        os.remove(temp_file.name)
+
+        # Display the prediction
+        st.header("Inference Results")
+        image = Image.open("results.jpg")
+        st.image(image, caption="Result Image", use_column_width=True)
+
+        st.json(prediction.json())

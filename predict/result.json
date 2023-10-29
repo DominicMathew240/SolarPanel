@@ -1,0 +1,239 @@
+{
+    "predictions": [
+        {
+            "x": 298.0,
+            "y": 71.5,
+            "width": 26.0,
+            "height": 15.0,
+            "confidence": 0.8264197707176208,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 111.5,
+            "y": 46.5,
+            "width": 17.0,
+            "height": 11.0,
+            "confidence": 0.8227984309196472,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 67.0,
+            "y": 59.0,
+            "width": 22.0,
+            "height": 10.0,
+            "confidence": 0.8132734298706055,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 82.5,
+            "y": 149.0,
+            "width": 25.0,
+            "height": 18.0,
+            "confidence": 0.8126760721206665,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 186.0,
+            "y": 123.0,
+            "width": 28.0,
+            "height": 16.0,
+            "confidence": 0.808971107006073,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 119.5,
+            "y": 127.5,
+            "width": 25.0,
+            "height": 17.0,
+            "confidence": 0.8062623739242554,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 78.0,
+            "y": 69.0,
+            "width": 22.0,
+            "height": 8.0,
+            "confidence": 0.8035632371902466,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 151.5,
+            "y": 107.0,
+            "width": 45.0,
+            "height": 28.0,
+            "confidence": 0.7989761829376221,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 230.0,
+            "y": 61.0,
+            "width": 18.0,
+            "height": 12.0,
+            "confidence": 0.7981380820274353,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 90.5,
+            "y": 44.5,
+            "width": 21.0,
+            "height": 11.0,
+            "confidence": 0.7953532338142395,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 40.5,
+            "y": 82.0,
+            "width": 15.0,
+            "height": 12.0,
+            "confidence": 0.7907077670097351,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 103.0,
+            "y": 63.5,
+            "width": 18.0,
+            "height": 9.0,
+            "confidence": 0.7847622632980347,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 7.0,
+            "y": 94.0,
+            "width": 14.0,
+            "height": 12.0,
+            "confidence": 0.7695100903511047,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 204.5,
+            "y": 39.5,
+            "width": 15.0,
+            "height": 9.0,
+            "confidence": 0.769081711769104,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 192.0,
+            "y": 33.0,
+            "width": 16.0,
+            "height": 12.0,
+            "confidence": 0.7642596364021301,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 142.0,
+            "y": 129.5,
+            "width": 20.0,
+            "height": 13.0,
+            "confidence": 0.7491880655288696,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 21.0,
+            "y": 81.5,
+            "width": 22.0,
+            "height": 11.0,
+            "confidence": 0.7381383180618286,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 7.5,
+            "y": 64.5,
+            "width": 15.0,
+            "height": 13.0,
+            "confidence": 0.7285300493240356,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 277.0,
+            "y": 4.0,
+            "width": 20.0,
+            "height": 8.0,
+            "confidence": 0.7001707553863525,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 290.0,
+            "y": 10.0,
+            "width": 14.0,
+            "height": 8.0,
+            "confidence": 0.6836154460906982,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        },
+        {
+            "x": 4.5,
+            "y": 78.5,
+            "width": 9.0,
+            "height": 19.0,
+            "confidence": 0.5082145929336548,
+            "class": "Hotspot",
+            "class_id": 0,
+            "image_path": "C:\\Users\\Dom\\Documents\\PYTHON\\solarFarm\\predict\\tmp4uoqaq0z.jpg",
+            "prediction_type": "ObjectDetectionModel"
+        }
+    ],
+    "image": {
+        "width": "318",
+        "height": "159"
+    }
+}
