@@ -34,9 +34,6 @@ roboflow_api_key = "dcZ99wzOfjJAOBZBqzQx"
 # Initialize Roboflow
 rf = Roboflow(api_key=roboflow_api_key)
 
-# Define a Streamlit app
-st.title("Developed by Sky Borneo Solutions")
-
 # Sidebar for user input
 st.sidebar.header("Configure Inference")
 st.sidebar.write("Confidence Threshold: The minimum confidence required for a prediction to be considered a positive detection.")
