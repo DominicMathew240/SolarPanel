@@ -14,6 +14,4 @@ cookie:
   name: random_cookie_name
 preauthorized:
   emails:
-  - melsby@gmail.com
-
-hashed_passwords = stauth.Hasher(['Pa$$w0rd', 'def']).generate()
+    - email: user@demo.com

@@ -1,26 +1,40 @@
-import streamlit_authenticator as stauth
-
-import yaml
-from yaml.loader import SafeLoader
 import streamlit as st
-from streamlit_authenticator import Authenticate
 
-with open('../credential.yaml') as file:
-    config = yaml.load(file, Loader=SafeLoader)
-    authenticator = Authenticate(
-        config['credentials'],
-        config['cookie']['name'],
-        config['cookie']['key'],
-        config['cookie']['expiry_days'],
-        config['preauthorized']
-    )
-    name, authentication_status, username = authenticator.login('Login', 'main')
+# Hardcoded username and password (for demonstration purposes)
+valid_username = "user"
+valid_password = "password"
 
-    if st.session_state["authentication_status"]:
-        authenticator.logout('Logout', 'main')
-        st.write(f'Welcome *{st.session_state["name"]}*')
-        st.title('Some content')
-    elif st.session_state["authentication_status"] == False:
-        st.error('Username/password is incorrect')
-    elif st.session_state["authentication_status"] == None:
-        st.warning('Please enter your username and password')
+# Streamlit app
+def main():
+    st.title("Simple Authentication Example")
+
+
+    # If the user is authenticated, show the authenticated content
+    if "authenticated" in valid_username and "authenticated" in valid_password:
+        test_page()
+    else:
+        login_page()
+
+def login_page():
+    st.subheader("Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    # Check if the entered credentials are valid
+    if st.button("Login"):
+        if username == valid_username and password == valid_password:
+            st.success("Logged In as {}".format(username))
+            st.info("Redirecting to the test page...")
+            # Redirect to the test page
+            test_page()
+        else:
+            st.warning("Invalid credentials. Please try again.")
+
+def test_page():
+    st.title("Welcome to the Test Page!")
+    st.write("This is the authenticated content.")
+    st.write("You can add more content specific to the test page here.")
+    st.markdown('<a href="test.py">AI Model</a>', unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main()
