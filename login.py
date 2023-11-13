@@ -18,6 +18,7 @@ hide_streamlit_style = """
             .stDeployButton {display:none;}
             header {visibility: hidden;}
             .container {display:none;}
+            [href*="streamlit.io"] {display: none;}
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
