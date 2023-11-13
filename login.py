@@ -40,7 +40,7 @@ footer = f"""
     position: fixed;
     right: 0;
     float: right;
-    bottom: 0;
+    top: 0;
     width: 26%;
     border-radius: 12px;
     text-align: center;
