@@ -1,7 +1,8 @@
 import streamlit as st
 from pathlib import Path
 from PIL import Image
-import pickle
+import yaml 
+from yaml.loader import SafeLoader
 import tempfile
 from roboflow import Roboflow
 import os
@@ -15,6 +16,7 @@ hide_streamlit_style = """
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             .stDeployButton {display:none;}
+            header {visibility: hidden;}
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
@@ -38,28 +40,31 @@ roboflow_api_key = "dcZ99wzOfjJAOBZBqzQx"
 rf = Roboflow(api_key=roboflow_api_key)
 
 # Hardcoded username and password (for demonstration purposes)
-names = ["user", "user2"]
-usernames = ["user", "user2"]
+names = ["Peter Parker", "Rebecca Miller"]
+usernames = ["pparker", "rmiller"]
 
 # load hashed passwords
-file_path = Path(__file__).parent / "hashed_pw.pkl"
-with file_path.open("rb") as file:
-    hashed_passwords = pickle.load(file)
+with open('config.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
 
-authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
-    "solar_panel", "abcdef", cookie_expiry_days=30)
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config['preauthorized']
+)
 
 names, authentication_status, username = authenticator.login("Login", "main")
 
-if authentication_status == False:
-    st.error("Incorrect username or password")
 
-if authentication_status == None:
-    st.error("Please login")
-
-if authentication_status == True:
+if st.session_state["authentication_status"] is False:
+    st.error('Username/password is incorrect')
+elif st.session_state["authentication_status"] is None:
+    st.warning('Please enter your username and password')
+elif st.session_state["authentication_status"]:
+    authenticator.logout('Logout', 'sidebar', key='unique_key')
     # Sidebar for user input
-    authenticator.logout("Logout", "sidebar")
     st.sidebar.header("Configure Inference")
     st.sidebar.write("Confidence Threshold: The minimum confidence required for a prediction to be considered a positive detection.")
     confidence = st.sidebar.slider("Confidence Threshold", 0, 100, 40)

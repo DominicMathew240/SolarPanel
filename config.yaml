@@ -1,17 +1,17 @@
 credentials:
   usernames:
-    jsmith:
-      email: user@demo.com
+    demo@gmail.com:
+      email: jsmith@gmail.com
       name: John Smith
-      password: Pa$$w0rd
-    rbriggs:
+      password: $2b$12$LFaXwPDbJqX6/hinE9xGFOrJcldmSSvAolJrDQpVsv.KuvEywfpEu
+    user@gmail.com:
       email: rbriggs@gmail.com
       name: Rebecca Briggs
-      password: def 
+      password: Pa$$w0rd
 cookie:
-  expiry_days: 30
-  key: random_signature_key # Must be string
-  name: random_cookie_name
+  expiry_days: 0
+  key: abcdef 
+  name: solar_panel
 preauthorized:
   emails:
-    - email: user@demo.com
+  - melsby@gmail.com
