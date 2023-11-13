@@ -17,7 +17,7 @@ hide_streamlit_style = """
             footer {visibility: hidden;}
             .stDeployButton {display:none;}
             header {visibility: hidden;}
-            .viewerBadge_container__r5tak {display: none;}
+            .container {display:none;}
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
