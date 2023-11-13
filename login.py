@@ -11,6 +11,54 @@ import json
 import pandas as pd
 import streamlit_authenticator as stauth
 
+
+node_comp = Image.open("logo/node-comp.png")
+stratetics = Image.open("logo/stratetics.png")
+dronez = Image.open("logo/dronez.png")
+
+# st.image([node_comp, stratetics, dronez], width=200)
+
+
+from io import BytesIO
+import base64
+
+def get_image_base64(image):
+    buffered = BytesIO()
+    image.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode()
+    return img_str
+
+node_comp_base64 = get_image_base64(node_comp)
+stratetics_base64 = get_image_base64(stratetics)
+dronez_base64 = get_image_base64(dronez)
+
+# Display images in the footer
+footer = f"""
+<style>
+.footer {{
+    background-color: #ffffff;
+    position: fixed;
+    right: 0;
+    float: right;
+    bottom: 0;
+    width: 26%;
+    border-radius: 12px;
+    text-align: center;
+    z-index: 1000;
+}}
+
+.footer-image {{
+    margin: 6px;
+}}
+</style>
+<div class="footer">
+<img src="data:image/png;base64,{node_comp_base64}" width="100" class="footer-image"/>
+<img src="data:image/png;base64,{stratetics_base64}" width="100" class="footer-image"/>
+<img src="data:image/png;base64,{dronez_base64}" width="60" class="footer-image"/>
+</div>
+"""
+st.markdown(footer, unsafe_allow_html=True)
+
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -18,7 +66,7 @@ hide_streamlit_style = """
             .stDeployButton {display:none;}
             header {visibility: hidden;}
             .container {display:none;}
-            [href*="streamlit.io"] {display: none;}
+            [href*="https://streamlit.io/cloud"] {display: none;}
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
@@ -58,7 +106,6 @@ authenticator = stauth.Authenticate(
 )
 
 names, authentication_status, username = authenticator.login("Login", "main")
-
 
 if st.session_state["authentication_status"] is False:
     st.error('Username/password is incorrect')
