@@ -1,4 +1,4 @@
-## Login.txt
+## Login.txt v1.0
 
 Description is the first version of the AI POC model, created by Dominic Mathew David
 
@@ -9,9 +9,12 @@ Description is the first version of the AI POC model, created by Dominic Mathew 
 - Predictions are presented visually on the uploaded image, Inference results are saved in a JSON file for further analysis.
 
 ## RoadMap & Future implementation
-1.	Semantic Segmentation Analysis: Utilize SAM's capabilities to perform detailed semantic segmentation analysis, enabling the system to understand the context and relationships between different objects within an image. [planning]
-2.	User Annotation Interface: Introduce an annotation interface that allows users to manually label objects within images. This annotated data can be used for future training, enhancing the model's accuracy and adaptability. [planning]
-3.	Data Analytics Dashboard: Develop a user-friendly dashboard that provides statistical insights into the dataset, including object distribution, common patterns, and potential areas for model improvement. [planning]
+- [ ] Semantic Segmentation Analysis: Utilize SAM's capabilities to perform detailed semantic segmentation analysis, enabling the system to understand the context and relationships between different objects within an image. [planning]
+- [ ] User Annotation Interface: Introduce an annotation interface that allows users to manually label objects within images. This annotated data can be used for future training, enhancing the model's accuracy and adaptability. [planning]
+- [ ] Data Analytics Dashboard: Develop a user-friendly dashboard that provides statistical insights into the dataset, including object distribution, common patterns, and potential areas for model improvement. [planning]
+
+
+
 
 
 
