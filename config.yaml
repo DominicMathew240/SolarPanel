@@ -6,8 +6,8 @@ credentials:
       password: $2b$12$LFaXwPDbJqX6/hinE9xGFOrJcldmSSvAolJrDQpVsv.KuvEywfpEu
     user@gmail.com:
       email: rbriggs@gmail.com
-      name: Rebecca Briggs
-      password: Pa$$w0rd
+      name: Rebecca Brigs
+      password: $2b$12$LFaXwPDbJqX6/hinE9xGFOrJcldmSSvAolJrDQpVsv.KuvEywfpEu
 cookie:
   expiry_days: 0
   key: abcdef 
