@@ -72,7 +72,7 @@ def run(img_dir, labels):
     if st.sidebar.button("Add Label"):
         if new_label:
             # Add the new label to the labels list
-            labels.append(new_label)
+            custom_labels.append(new_label)
             st.success(f"Label {new_label} added.")
         else:
             st.warning("Please enter a label name.")
