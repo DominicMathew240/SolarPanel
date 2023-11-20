@@ -42,3 +42,9 @@ Certainly! Here are three more features you can consider integrating into the ex
 3. Automated Quality Assurance (QA):
    - Idea: Develop an automated QA module that assesses the quality of annotations. The system could flag or suggest corrections for inconsistent or potentially inaccurate annotations, helping maintain high-quality labeled datasets.
    - Benefits: Streamlines the data curation process by automating the identification of potential annotation errors. This ensures the model is trained on reliable data, improving overall performance.
+     
+4.Image Preprocessing Pipeline: Implement a simple image preprocessing pipeline that allows users to apply basic transformations to input images before they are fed into the model. This could include resizing, normalization, and augmentation techniques. Providing users with the ability to preprocess images can enhance the model's robustness and performance on various types of input.
+
+5.Real-time Inference API: Develop a lightweight API that allows users to perform real-time semantic segmentation on images. This feature can be especially useful for applications where users need instant feedback on the segmentation results. Flask or FastAPI can be employed to quickly set up a web server that accepts image uploads or URLs and returns the segmentation results.
+
+6.Model Evaluation Module: Create a module for evaluating the model's performance on a given dataset. This module can compute standard metrics such as precision, recall, and F1 score, providing users with a quantitative measure of the model's accuracy. Additionally, you can include visualization tools to compare predicted segmentation masks with ground truth annotations, helping users identify areas for model improvement.
