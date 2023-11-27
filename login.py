@@ -171,11 +171,11 @@ elif st.session_state["authentication_status"]:
             
             # Perform inference with the temporary file path - Result in JSON format
             prediction = rf.project("pv-temperature-detection").version(2).model.predict(
-                temp_file.name, confidence=confidence, overlap=overlap
+                temp_file.name, confidence=confidence, overlap=overlap, show=True
             )
             # Perform inference with the temporary file path - RESULT IN IMAGE FORMAT
             prediction2 = rf.project("pv-temperature-detection").version(2).model.predict(
-                temp_file.name, confidence=confidence, overlap=overlap
+                temp_file.name, confidence=confidence, overlap=overlap, show=True
             ).save("results.jpg")
             
             # Remove the temporary file
