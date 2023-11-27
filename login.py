@@ -115,6 +115,12 @@ def dump_to_json(target_path: str, content: dict) -> None:
     with open(target_path, 'w') as outfile:
         json.dump(content, outfile, indent=4)
 
+# Function to add ID to each detection
+def add_id_to_detections(predictions):
+    for i, prediction in enumerate(predictions):
+        prediction['id'] = i + 1
+    return predictions
+
 # Set your Roboflow API key
 roboflow_api_key = "dcZ99wzOfjJAOBZBqzQx"
 
@@ -171,11 +177,11 @@ elif st.session_state["authentication_status"]:
             
             # Perform inference with the temporary file path - Result in JSON format
             prediction = rf.project("pv-temperature-detection").version(2).model.predict(
-                temp_file.name, confidence=confidence, overlap=overlap, show=True
+                temp_file.name, confidence=confidence, overlap=overlap
             )
             # Perform inference with the temporary file path - RESULT IN IMAGE FORMAT
             prediction2 = rf.project("pv-temperature-detection").version(2).model.predict(
-                temp_file.name, confidence=confidence, overlap=overlap, show=True
+                temp_file.name, confidence=confidence, overlap=overlap
             ).save("results.jpg")
             
             # Remove the temporary file
@@ -197,7 +203,10 @@ elif st.session_state["authentication_status"]:
             # Display the prediction
             st.header("Inference Results")
             image = Image.open("results.jpg")
+
             col2.image(image, caption="Result Image", use_column_width=True)
+            
+            result = add_id_to_detections(result)
             
             # Count the number of predictions
             result = prediction.json()['predictions']
@@ -232,5 +241,5 @@ elif st.session_state["authentication_status"]:
                 data["predictions"], 
                 columns=['class','confidence']
                 ))
-            st.write("Detailed JSON Output:")
-            st.write(prediction.json())
+            # st.write("Detailed JSON Output:")
+            # st.write(prediction.json())
