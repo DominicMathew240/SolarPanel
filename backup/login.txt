@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 import json
 import pandas as pd
 import streamlit_authenticator as stauth
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 node_comp = Image.open("logo/node-comp.png")
@@ -77,7 +80,35 @@ def safe_create_path(path: str) -> None:
     path_parent = os.path.dirname(path)
     os.makedirs(path_parent, exist_ok=True)
 
-# safe_create_path('predict')
+# Function to display distribution of classes
+def display_class_distribution(predictions):
+    st.subheader('Class Distribution')
+    class_counts = pd.Series([prediction['class'] for prediction in predictions]).value_counts()
+    st.bar_chart(class_counts)
+
+# Function to display confidence distribution
+def display_confidence_distribution(predictions):
+    st.subheader('Confidence Distribution')
+    confidence_values = pd.Series([prediction['confidence'] for prediction in predictions])
+    
+    # Create the histogram using Matplotlib
+    fig, ax = plt.subplots()
+    ax.hist(confidence_values, bins=20)
+    ax.set_xlabel('Confidence')
+    ax.set_ylabel('Frequency')
+    ax.set_title('Confidence Distribution')
+
+    # Display the Matplotlib figure in Streamlit
+    st.pyplot(fig)
+
+# Function to display a heatmap of class vs confidence
+def display_confidence_heatmap(predictions):
+    st.subheader('Class vs Confidence Heatmap')
+    df_confidence_heatmap = pd.DataFrame(predictions, columns=['class', 'confidence'])
+    df_confidence_heatmap = df_confidence_heatmap.pivot_table(index='class', values='confidence', aggfunc='mean')
+    fig, ax = plt.subplots()
+    sns.heatmap(df_confidence_heatmap, annot=True, cmap='coolwarm', fmt='.2f', cbar_kws={'label': 'Mean Confidence'})
+    st.pyplot(fig)
 
 # Function to dump content to a JSON file
 def dump_to_json(target_path: str, content: dict) -> None:
@@ -132,7 +163,7 @@ elif st.session_state["authentication_status"]:
 
         # Perform inference on the uploaded image
         if st.sidebar.button("Run Inference"):
-            st.write("Running Inference...")
+            st.write("Running Inference...") 
             
             # Save the uploaded image as a temporary file
             with tempfile.NamedTemporaryFile(suffix=".jpg", dir='predict', delete=False) as temp_file:
@@ -149,6 +180,19 @@ elif st.session_state["authentication_status"]:
             
             # Remove the temporary file
             os.remove(temp_file.name)
+
+            # Display additional insights based on predictions
+            result = prediction.json()['predictions']
+            display_class_distribution(result)
+
+            # Create two columns
+            col3, col4 = st.columns(2)
+
+            # Display the outputs in the columns
+            with col3:
+                display_confidence_distribution(result)
+            with col4:
+                display_confidence_heatmap(result)
 
             # Display the prediction
             st.header("Inference Results")

@@ -9,10 +9,11 @@ import os
 import matplotlib.pyplot as plt
 import json
 import pandas as pd
-import streamlit_authenticator as stauth
-import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
+import streamlit_authenticator as stauth
+from ultralytics import YOLO
+from data import class_names
+
 
 
 node_comp = Image.open("logo/node-comp.png")
@@ -34,6 +35,10 @@ def get_image_base64(image):
 node_comp_base64 = get_image_base64(node_comp)
 stratetics_base64 = get_image_base64(stratetics)
 dronez_base64 = get_image_base64(dronez)
+
+
+# Load a pretrained YOLOv8n model
+model = YOLO('best1.pt')
 
 # Display images in the footer
 footer = f"""
@@ -83,13 +88,22 @@ def safe_create_path(path: str) -> None:
 # Function to display distribution of classes
 def display_class_distribution(predictions):
     st.subheader('Class Distribution')
-    class_counts = pd.Series([prediction['class'] for prediction in predictions]).value_counts()
+
+    cls_list = predictions.tolist()
+    
+    # Map class indices to class names
+    class_labels = [class_names[i] for i in cls_list]
+
+    # Create a pandas Series for class counts
+    class_counts = pd.Series(class_labels).value_counts()
+
     st.bar_chart(class_counts)
 
 # Function to display confidence distribution
 def display_confidence_distribution(predictions):
     st.subheader('Confidence Distribution')
-    confidence_values = pd.Series([prediction['confidence'] for prediction in predictions])
+    conf_list = predictions.tolist()
+    confidence_values = conf_list
     
     # Create the histogram using Matplotlib
     fig, ax = plt.subplots()
@@ -102,12 +116,26 @@ def display_confidence_distribution(predictions):
     st.pyplot(fig)
 
 # Function to display a heatmap of class vs confidence
-def display_confidence_heatmap(predictions):
+def display_confidence_heatmap(conf, number):
     st.subheader('Class vs Confidence Heatmap')
-    df_confidence_heatmap = pd.DataFrame(predictions, columns=['class', 'confidence'])
+
+    confidences = conf.tolist()
+    cls = number.tolist() 
+    
+    # Map class indices to class names
+    class_labels = [class_names[i] for i in cls]
+
+    # Create a DataFrame
+    df_confidence_heatmap = pd.DataFrame({'class': class_labels, 'confidence': confidences})
+
+    # Pivot the DataFrame
     df_confidence_heatmap = df_confidence_heatmap.pivot_table(index='class', values='confidence', aggfunc='mean')
+    
+    # Create heatmap
     fig, ax = plt.subplots()
-    sns.heatmap(df_confidence_heatmap, annot=True, cmap='coolwarm', fmt='.2f', cbar_kws={'label': 'Mean Confidence'})
+    sns.heatmap(df_confidence_heatmap, annot=True, cmap='coolwarm', fmt='.2f', cbar_kws={'label': 'Mean Confidence'}, ax=ax)
+    
+    # Display the plot
     st.pyplot(fig)
 
 # Function to dump content to a JSON file
@@ -163,74 +191,72 @@ elif st.session_state["authentication_status"]:
 
         # Perform inference on the uploaded image
         if st.sidebar.button("Run Inference"):
-            st.write("Running Inference...") 
+            st.write("Running Inference...")
             
             # Save the uploaded image as a temporary file
             with tempfile.NamedTemporaryFile(suffix=".jpg", dir='predict', delete=False) as temp_file:
                 image.save(temp_file.name)
             
             # Perform inference with the temporary file path - Result in JSON format
-            prediction = rf.project("pv-temperature-detection").version(2).model.predict(
-                temp_file.name, confidence=confidence, overlap=overlap
+            prediction = model.predict(
+                temp_file.name
             )
-            # Perform inference with the temporary file path - RESULT IN IMAGE FORMAT
-            prediction2 = rf.project("pv-temperature-detection").version(2).model.predict(
-                temp_file.name, confidence=confidence, overlap=overlap
-            ).save("results.jpg")
-            
             # Remove the temporary file
             os.remove(temp_file.name)
-
-            # Display additional insights based on predictions
-            result = prediction.json()['predictions']
-            display_class_distribution(result)
-
-            # Create two columns
-            col3, col4 = st.columns(2)
-
-            # Display the outputs in the columns
-            with col3:
-                display_confidence_distribution(result)
-            with col4:
-                display_confidence_heatmap(result)
 
             # Display the prediction
             st.header("Inference Results")
             image = Image.open("results.jpg")
             col2.image(image, caption="Result Image", use_column_width=True)
-            
+
+            # Access the confidence values
+            for r in prediction:
+                number = r.boxes.cls
+                confidence = r.boxes.conf
+         
+
+            # Display the class distribution
+            display_class_distribution(number)
+            # Create two columns
+            col3, col4 = st.columns(2)
+
+            # Display the outputs in the columns
+            with col3:
+                display_confidence_distribution(confidence)
+            with col4:
+                display_confidence_heatmap(confidence, number)
+
             # Count the number of predictions
-            result = prediction.json()['predictions']
-            num_predictions = len(result)
+            num_predictions = len(number)
             st.write("Number of Predictions: ", num_predictions)
             
-            json_result = prediction.json()
-            dump_to_json('predict/result.json', json_result)
-
-            f = open('predict/result.json',)
-
-            data = json.load(f)
             col1, col2 = st.columns(2)
-            total_confidence = 0
-            for i in data["predictions"]:
-                total_confidence += i['confidence']
+            confidences = confidence.tolist()
 
-            average_confidence = total_confidence / len(data["predictions"])
+            # Calculate total confidence
+            total_confidence = sum(confidences)
 
-            col1.metric(label="Class", value=data["predictions"][0]["class"])   
+            # Calculate average confidence
+            if len(confidences) > 0:
+                average_confidence = total_confidence / len(confidences)
+            else:
+                average_confidence = 0
+            # Display rhe class name and average confidence
+            class_name = class_names[int(number[0])]
+
+            # Use st.metric to display the class name
+            col1.metric(label="Class", value=class_name)  
             col2.metric(label="Avg Confidence", value=average_confidence)   
 
             col1, col2 = st.columns(2) 
 
             # Display the prediction in a table
-            df = pd.DataFrame(data["predictions"], columns=['class', 'confidence'])
+            df = pd.DataFrame({'class': class_name, 'confidence': confidences})
             col1.write("Confidence Analysis Summary:")
-            col1.write(df['confidence'].describe())
+            col1.write(df['confidence'].describe())  # Display summary statistics for confidenc
             
-            # Display the prediction in a table
-            col2.bar_chart(pd.DataFrame(
-                data["predictions"], 
-                columns=['class','confidence']
-                ))
-            st.write("Detailed JSON Output:")
-            st.write(prediction.json())
+            # Display the prediction in a bar chart
+            col2.bar_chart(pd.DataFrame({'class': class_name, 'confidence': confidences}))
+            
+            # st.write("Detailed JSON Output:")
+            # st.write(prediction.json())
